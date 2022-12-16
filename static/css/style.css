@@ -1,0 +1,470 @@
+/* Importando a fonte Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+/* Pointer view */
+[data-href] { cursor: pointer; }
+
+/* Definindo variáveis para a paleta de cores */
+:root {
+    --vermelho: #bd122c;
+    --amarelo: #fdbf1b;
+    --azul-profundo: #2b3041;
+    --off-white: #f8f5e5;
+    --rafia: #e8e5d4;
+    --hover: #d3d1c5;
+    --escuro: #171717;
+}
+
+
+/* Definições Gerais da página */
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+.wrapper {
+    min-height: 100vh;
+    background-color: var(--off-white);
+}
+
+
+/* Containers */
+.wrapper .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.container-pesquisa {
+    background-image: url('/static/image/wallpaper.jpg');
+    background-size: cover;                     
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 450px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+
+/* Classes referentes ao header */
+.header {
+    margin: 0 auto;
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header img {
+    margin-left: 0px;
+    height: 50px;
+    width: auto;
+}
+
+.header .lista-filmes-assistir {
+    position: absolute;
+    right: 35px;
+    top: 85px;
+    text-decoration: none;
+    color: var(--azul-profundo);
+    font-size: 1.4rem;
+}
+
+.header .lista-filmes-assistir i {
+    color: var(--azul-profundo);
+    margin: 0 0.4rem 0 0;
+}
+
+.header .procurar-filmes {
+    position: absolute;
+    right: 35px;
+    top: 85px;
+    text-decoration: none;
+    color: var(--azul-profundo);
+    font-size: 1.4rem;
+} 
+
+.header .procurar-filmes i {
+    color: var(--azul-profundo);
+    margin: 0 0.4rem 0 0;
+}
+
+
+/* Classes referentes à página Minha Lista */
+.container-minha-lista {
+    background-image: url('/static/image/wallpaper.jpg');
+    background-size: cover;                     
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 300px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+.container-minha-lista h1 {
+    font-size: 36pt;
+    color: var(--azul-profundo);
+}
+
+.hide {
+    display: none;
+}
+
+.lista-vazia {
+    font-size: 24pt;
+    color: var(--azul-profundo);
+    padding-top: 80px;
+}
+
+.botao-adicionar {
+    background-color: var(--off-white);
+    display: inline-block;
+    padding-left: 15px;
+    border: none;
+    height: 100px;
+    width: auto;
+}
+
+.botao-adicionar i {
+    color: var(--azul-profundo);
+    font-size: 40px;
+}
+
+.botao-remover {
+    background-color: var(--off-white);
+    display: inline-block;
+    padding-left: 15px;
+    border: none;
+    height: 100px;
+    width: auto;
+}
+
+.botao-remover i {
+    color: var(--azul-profundo);
+    font-size: 40px;
+}
+
+
+/* Classes referentes ao formulário de pesquisa */
+.pesquisar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    position: relative;
+}
+
+.pesquisar h3 {
+    -ms-flex-item-align: center;
+        align-self: center;
+    margin-right: 1rem;
+    font-size: 2rem;
+    color: var(--azul-profundo);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.pesquisar .formulario {
+    padding: 1rem 2rem;
+    font-size: 18pt;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    color: var(--light-dark-color);
+    width: 500px;
+}
+
+
+/* Classes referentes à lista de pesquisa que retorna os títulos correspondentes */
+.lista-pesquisa {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    max-height: 305px;
+    overflow-y: scroll;
+    z-index: 10;
+}
+
+.lista-pesquisa .lista-pesquisa-item {
+    background-color: var(--rafia);
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--off-white);
+    width: calc(498px - 10px);
+    color: var(--azul-profundo);
+    cursor: pointer;
+    -webkit-transition: background-color 200ms ease;
+    -o-transition: background-color 200ms ease;
+    transition: background-color 200ms ease;
+}
+
+.lista-pesquisa .lista-pesquisa-item:Hover {
+    background-color: var(--amarelo);
+}
+
+.lista-pesquisa-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.item-pesquisa-poster img {
+    width: 40px;
+    margin-right: 1rem;
+}
+
+.item-pesquisa-info h3 {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.item-pesquisa-info p {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+
+/* classes geradas pelo javascript, relacionadas as informações retornadas pela API */
+.hide-lista-pesquisa {
+    display: none;
+}
+
+.container-resultado {
+    padding: 3rem 0;
+}
+
+.filme-poster img {
+    max-width: 400px;
+    margin: 0 auto;
+    border: 7px solid var(--escuro);
+}
+
+.filme-infos {
+    text-align: center;
+    padding-top: 3rem;
+}
+
+.filme-titulo {
+    display: inline-block;
+    font-size: 3rem;
+    color: var(--azul-profundo);
+}
+
+.filme-infos .avaliacao {
+    font-size: 2.2rem;
+    font-style: italic;
+    display: inline-block;
+    color: var(--amarelo);
+    padding-left: 1rem;
+}
+
+.filme-infos .avaliacao i {
+    color: var(--amarelo);
+}
+
+.ano-duracao-info {
+    list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 1rem;
+}
+
+.filme-infos .ano {
+    font-size: 1.2rem;
+    color: var(--azul-profundo);
+    font-weight: 500;
+    padding-top: 0.5rem;
+}
+
+.filme-infos .duracao {
+    font-size: 1.2rem;
+    color: var(--azul-profundo);
+    font-weight: 500;
+    padding-top: 0.5rem;
+    padding-left: 1rem;
+}
+
+.filme-infos .escritor {
+    font-size: 1.2rem;
+    color: var(--azul-profundo);
+    padding: 0.5rem;
+    margin: 1rem 0;
+    padding-top: 0.5rem;
+}
+
+.filme-infos .atores {
+    font-size: 1.2rem;
+    color: var(--azul-profundo);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.filme-infos .genero {
+    font-size: 1.2rem;
+    background-color: var(--amarelo);
+    display: inline-block;
+    padding: 0.5rem;
+    border-radius: 3px;
+}
+
+.filme-infos .sinopse {
+    font-size: 1.2rem;
+    color: var(--azul-profundo);
+    max-width: 500px;
+    margin: 1rem auto;
+    padding-top: 0.5rem;
+}
+
+.filme-infos .linguagem {
+    font-size: 1.2rem;
+    color: var(--azul-profundo);
+    padding-top: 1rem !important;
+    padding-bottom: 0.5rem;
+}
+
+.filme-infos .pais {
+    font-size: 1.2rem;
+    color: var(--azul-profundo);
+    padding-top: 1rem !important;
+}
+
+.filme-infos .premios {
+    font-size: 1.2rem;
+    color: var(--azul-profundo);
+    font-weight: 300;
+    padding-top: 0.5rem;
+}
+
+.filme-infos .premios i {
+    color: var(--amarelo);
+    margin: 2rem 0.7rem 0 0;
+}
+
+
+@media(max-width: 450px){
+
+    .pesquisar .formulario {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0.5rem 1rem;
+    }
+
+    .pesquisar h3 {
+        font-size: 1.4rem;
+    }
+
+    .lista-pesquisa {
+        width: 90%;
+        right: 50%;
+        -webkit-transform: translateX(50%);
+            -ms-transform: translateX(50%);
+                transform: translateX(50%);
+    }
+
+    .lista-pesquisa .lista-pesquisa-item {
+        width: 100%;
+    }
+
+    .ano-duracao-info {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+
+    .ano-duracao-info li:nth-child(2) {
+        margin: 0.8rem 0;
+    }
+
+}
+
+
+@media(min-width: 800px){
+    .pesquisar {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+    }
+
+    .pesquisar h3 {
+        margin-bottom: 0;
+    }
+
+    .grade-resultado {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding-top: 40px;
+        padding-bottom: 25px;
+    }
+
+    .filme-infos {
+        text-align: left;
+        padding-top: 0;
+    }
+
+    .filme-infos .ano-duracao-info {
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        padding-left: 0;
+    }
+
+    .filme-infos .sinopse {
+        margin-left: 0;
+    }
+
+    .filme-infos .escritor {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+}

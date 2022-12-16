@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Lista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel = "stylesheet" href = "static/css/style.css">
+</head>
+<body>
+    
+    <div class="wrapper">
+        <!-- Acesso ao Index e visualização do logo da IMDbSearch -->
+        <div class="header">
+            <div class="container">
+                <img src="static/image/ImdbSearch.png">
+                <a href="index.html" class="procurar-filmes"><i class="fa-solid fa-magnifying-glass"></i><b>Procurar</b></a>
+            </div>
+        </div>
+
+        <!-- Container do título -->
+        <div class="container-minha-lista">
+            <h1><b>Minha Lista</b></h1>
+        </div>
+        <!-- fim do container do título -->
+
+        <main>
+            <div class="container" id="minha-lista">
+                <div id="mostrar-lisa-filmes">
+                    {% if query is none %}
+                            <p class="lista-vazia">Sua lista parece estar vazia. Que tal adicionar um filme?</p>
+                    {% else %}
+                            <table class="table-minha-lista">
+                            {% for q in query %}
+                                <tr>
+                                    <td class="table-poster" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;"><img src="{{ q[6] }}" alt="" border=3 height=100 width=300></img></td>
+                                    <td class="table-titulo" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[1] }}</td>
+                                    <td class="ano" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[2] }}</td>
+                                    <td class="table-duracao" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[3] }} min</td>
+                                    <td class="table-genero" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[4] }}</td>
+                                    <td class="table-avaliacao" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-star"></i>{{ q[5] }}</td>
+                                    <td class="table-botao">
+                                        <span id="{{ q[0] }}" class="hide id-filme">{{ q[0] }}</span>
+                                        <button class="table-botao-remover" onclick="removerMinhaLista()"><i class="fa-solid fa-circle-minus"></i></button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <script src="../static/js/minhaLista.js"></script>
+</body>
+</html>
