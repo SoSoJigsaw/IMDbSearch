@@ -26,6 +26,108 @@
         <!-- fim do container do título -->
 
         <main>
+
+            <div class="container" id="form-minha-lista">
+                <form method="POST" action="/filmes">
+                    {{ form.csrf_token }}
+
+                    <p>
+                    {{ form.anoMin.label }}
+                    {{ form.anoMin() }}
+                    </p>
+
+                    {% if form.anoMin.errors %}
+                    <ul class="errors">
+                        {% for error in form.anoMin.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <p>
+                    {{ form.anoMax.label }}
+                    {{ form.anoMax() }}
+                    </p>
+
+                    {% if form.anoMax.errors %}
+                    <ul class="errors">
+                        {% for error in form.anoMax.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <p>
+                    {{ form.duracaoMin.label }}
+                    {{ form.duracaoMin() }}
+                    </p>
+
+                    {% if form.duracaoMin.errors %}
+                    <ul class="errors">
+                        {% for error in form.duracaoMin.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <p>
+                    {{ form.duracaoMax.label }}
+                    {{ form.duracaoMax() }}
+                    </p>
+
+                    {% if form.duracaoMax.errors %}
+                    <ul class="errors">
+                        {% for error in form.duracaoMax.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <p>
+                    {{ form.notaMin.label }}
+                    {{ form.notaMin() }}
+                    </p>
+
+                    {% if form.notaMin.errors %}
+                    <ul class="errors">
+                        {% for error in form.notaMin.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <p>
+                    {{ form.notaMax.label }}
+                    {{ form.notaMax() }}
+                    </p>
+
+                    {% if form.notaMax.errors %}
+                    <ul class="errors">
+                        {% for error in form.notaMax.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <p>
+                        {{ form.genero.label }}
+                        {{ form.genero() }}
+                    </p>
+
+                {% if form.genero.errors %}
+                    <ul class="errors">
+                    {% for error in form.genero.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <p>
+                    <input type="submit" value="Add">
+                </p>
+                </form>
+            </div>
+
             <div class="container" id="minha-lista">
                 <div id="mostrar-lisa-filmes">
                     {% if query is none %}

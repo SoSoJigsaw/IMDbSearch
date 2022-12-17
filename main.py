@@ -2,6 +2,7 @@ import json
 from sqlalchemy import create_engine
 import requests
 from flask import Flask, render_template, request, jsonify, flash, redirect
+from forms import ConsultaForm
 
 app = Flask(__name__)
 app.secret_key = '1234'
@@ -105,9 +106,38 @@ def apagar_filme(imdbID):
 @app.route("/filmes", methods=['GET'])
 def mostrar_filmes():
 
+    form = ConsultaForm()
+
     query = db.execute("SELECT * FROM mostrar_filmes_view;").fetchall()
 
-    return render_template('minhalista.html', query=query)
+    return render_template('minhalista.html', query=query, form=form)
+
+
+@app.route("/filmes", methods=['POST'])
+def mostrar_filmes_post():
+
+    form = ConsultaForm()
+
+    query = db.execute("SELECT * FROM mostrar_filmes_view;").fetchall()
+
+    if form.validate_on_submit():
+        print(form.anoMin.data)
+        print(form.anoMax.data)
+        print(form.duracaoMin.data)
+        print(form.duracaoMax.data)
+        print(form.notaMin.data)
+        print(form.notaMax.data)
+        print(form.genero.data)
+
+    form.anoMin.data = ''
+    form.anoMax.data = ''
+    form.duracaoMin.data = ''
+    form.duracaoMax.data = ''
+    form.notaMin.data = ''
+    form.notaMax.data = ''
+    form.genero.data = ''
+
+    return render_template('minhalista.html', query=query, form=form)
 
 
 @app.route("/filmes/<string:imdbID>", methods=['GET'])
