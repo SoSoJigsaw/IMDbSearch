@@ -48,7 +48,7 @@
             <li class="ano"><b>Ano:</b>{{ q[2] }}</li>
             <li class="duracao"><b>Duração:</b> {{ q[3] }} min</li>
         </ul>
-        <p class="genero"><b>Gênero:</b> {{ q[5] }}</p>
+        <p class="genero"><b>Gênero:</b> {{ q[5].rstrip(" ") | replace(" ",", ") }}</p>
         <p class="sinopse"><b>Sinopse:</b> {{ q[6] }}</p>
         <p class="escritor"><b>Escrito por:</b> {{ q[7] }}</p>
         <p class="atores"><b>Atores:</b> {{ q[8] }}</p>

@@ -64,8 +64,25 @@ def salvar_filme(imdbID):
 
         print(f"'{filme['Title']}' adicionado à lista de filmes do usuário")
 
+        i = 0
+        genre_string = filme['Genre']
+        genre = []
+        while i <= genre_string.count(','):
+            if genre_string.count(',') == 0:
+                genre.append(genre_string)
+            else:
+                genre.append(genre_string.split(",", genre_string.count(','))[i])
+                i += 1
+
+        i = 0
+        while i <= len(genre) - 1:
+            genre[i] = genre[i].replace(' ', '')
+            i += 1
+
+        db.execute(f"INSERT INTO genero VALUES ('{filme['imdbID']}', {str(genre)[1:-1]})")
+
     except:
-        pass
+        raise
 
     return redirect('/filmes')
 
@@ -75,10 +92,12 @@ def apagar_filme(imdbID):
 
     try:
 
+        db.execute(f"DELETE FROM genero WHERE imdb_id= '{imdbID}';")
+
         db.execute(f"DELETE FROM filme WHERE imdb_id= '{imdbID}';")
 
     except:
-        pass
+        raise
 
     return redirect('/filmes')
 
@@ -86,8 +105,7 @@ def apagar_filme(imdbID):
 @app.route("/filmes", methods=['GET'])
 def mostrar_filmes():
 
-    query = db.execute("SELECT imdb_id, titulo, ano, duracao_min, genero, nota_imdb, poster, datahora FROM filme "
-                       "ORDER BY datahora DESC;").fetchall()
+    query = db.execute("SELECT * FROM mostrar_filmes_view;").fetchall()
 
     return render_template('minhalista.html', query=query)
 
@@ -95,7 +113,7 @@ def mostrar_filmes():
 @app.route("/filmes/<string:imdbID>", methods=['GET'])
 def mostrar_detalhes_filme(imdbID):
 
-    query = db.execute(f"SELECT * FROM filme WHERE imdb_id = '{imdbID}'").fetchall()
+    query = db.execute(f"SELECT * FROM mostrar_detalhes_filme_view WHERE imdb_id = '{imdbID}'").fetchall()
 
     existe_no_banco = db.execute(f"SELECT EXISTS (SELECT 1 FROM filme WHERE imdb_id='{imdbID}')").scalar()
 

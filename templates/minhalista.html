@@ -38,7 +38,7 @@
                                     <td class="table-titulo" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[1] }}</td>
                                     <td class="ano" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[2] }}</td>
                                     <td class="table-duracao" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[3] }} min</td>
-                                    <td class="table-genero" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[4] }}</td>
+                                    <td class="table-genero" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[4].rstrip(" ") | replace(" ",", ") }}</td>
                                     <td class="table-avaliacao" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-star"></i>{{ q[5] }}</td>
                                     <td class="table-botao">
                                         <span id="{{ q[0] }}" class="hide id-filme">{{ q[0] }}</span>
