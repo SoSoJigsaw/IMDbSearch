@@ -1,10 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, RadioField, FloatField, SelectMultipleField
+from wtforms import StringField, SelectMultipleField, SelectField
 from wtforms.validators import InputRequired, Length, Optional
 from Genero import genero_options
 
 
 class ConsultaForm(FlaskForm):
+
+    formaConsulta = SelectField('Forma de consulta', choices=['Lista', 'Surpreenda-me'], validators=[InputRequired()])
 
     anoMin = StringField('Ano (mínimo)', validators=[Optional(), Length(min=4, max=4)])
     anoMax = StringField('Ano (máximo)', validators=[Optional(), Length(min=4, max=4)])

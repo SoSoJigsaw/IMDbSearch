@@ -32,6 +32,19 @@
                     {{ form.csrf_token }}
 
                     <p>
+                        {{ form.formaConsulta.label }}
+                        {{ form.formaConsulta() }}
+                    </p>
+
+                {% if form.formaConsulta.errors %}
+                    <ul class="errors">
+                    {% for error in form.formaConsulta.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+
+                    <p>
                     {{ form.anoMin.label }}
                     {{ form.anoMin() }}
                     </p>
@@ -125,6 +138,7 @@
                 <p>
                     <input type="submit" value="Add">
                 </p>
+
                 </form>
             </div>
 
@@ -144,7 +158,7 @@
                                     <td class="table-avaliacao" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-star"></i>{{ q[5] }}</td>
                                     <td class="table-botao">
                                         <span id="{{ q[0] }}" class="hide id-filme">{{ q[0] }}</span>
-                                        <button class="table-botao-remover" onclick="removerMinhaLista()"><i class="fa-solid fa-circle-minus"></i></button>
+                                        <button class="table-botao-remover" onclick="window.location='remover/{{ q[0] }}'"><i class="fa-solid fa-circle-minus"></i></button>
                                     </td>
                                 </tr>
                             {% endfor %}

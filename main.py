@@ -1,4 +1,5 @@
 import json
+import random
 from sqlalchemy import create_engine
 import requests
 from flask import Flask, render_template, request, jsonify, flash, redirect
@@ -149,7 +150,7 @@ def mostrar_filmes_post():
         else:
             formNotaMax = f" AND v.nota_imdb <= {form.notaMax.data}"
 
-        if form.genero.data is None:
+        if not form.genero.data:
             formGenero = ''
         else:
             formGenero = f" AND (g.genero_1 = ANY (array{form.genero.data}) " \
@@ -167,7 +168,16 @@ def mostrar_filmes_post():
                            f"{formAnoMin}{formAnoMax}{formDuracaoMin}{formDuracaoMax}{formNotaMin}"
                            f"{formNotaMax}{formGenero};").fetchall()
 
-        return render_template('minhalista.html', query=query, form=form)
+        if form.formaConsulta.data == 'Lista':
+
+            return render_template('minhalista.html', query=query, form=form)
+
+        if form.formaConsulta.data == 'Surpreenda-me':
+
+            random_film = random.choice(query)
+            query = [random_film]
+
+            return render_template('minhalista.html', query=query, form=form)
 
     else:
         return render_template('minhalista.html', form=form)
