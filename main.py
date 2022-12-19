@@ -57,9 +57,9 @@ def salvar_filme(imdbID):
 
         filme['Poster'] = filme['Poster'].replace('N/A', '/static/image/sem_imagem.gif')
 
-        db.execute(f"INSERT INTO filme (imdb_id, titulo, ano, duracao_min, nota_imdb, genero, sinopse, escrito_por, atores, "
+        db.execute(f"INSERT INTO filme (imdb_id, titulo, ano, duracao_min, nota_imdb, sinopse, escrito_por, atores, "
                    f"idioma, pais, premios, poster) VALUES ('{filme['imdbID']}', '{filme['Title']}', {filme['Year']}, "
-                   f"{filme['Runtime']}, {filme['imdbRating']}, '{filme['Genre']}', '{filme['Plot']}', "
+                   f"{filme['Runtime']}, {filme['imdbRating']}, '{filme['Plot']}', "
                    f"'{filme['Writer']}', '{filme['Actors']}', '{filme['Language']}', '{filme['Country']}', "
                    f"'{filme['Awards']}', '{filme['Poster']}')")
 
@@ -118,26 +118,59 @@ def mostrar_filmes_post():
 
     form = ConsultaForm()
 
-    query = db.execute("SELECT * FROM mostrar_filmes_view;").fetchall()
-
     if form.validate_on_submit():
-        print(form.anoMin.data)
-        print(form.anoMax.data)
-        print(form.duracaoMin.data)
-        print(form.duracaoMax.data)
-        print(form.notaMin.data)
-        print(form.notaMax.data)
-        print(form.genero.data)
+        if form.anoMin.data == '':
+            formAnoMin = ''
+        else:
+            formAnoMin = f" AND v.ano >= {form.anoMin.data}"
 
-    form.anoMin.data = ''
-    form.anoMax.data = ''
-    form.duracaoMin.data = ''
-    form.duracaoMax.data = ''
-    form.notaMin.data = ''
-    form.notaMax.data = ''
-    form.genero.data = ''
+        if form.anoMax.data == '':
+            formAnoMax = ''
+        else:
+            formAnoMax = f" AND v.ano <= {form.anoMax.data}"
 
-    return render_template('minhalista.html', query=query, form=form)
+        if form.duracaoMin.data == '':
+            formDuracaoMin = ''
+        else:
+            formDuracaoMin = f" AND v.duracao_min >= {form.duracaoMin.data}"
+
+        if form.duracaoMax.data == '':
+            formDuracaoMax = ''
+        else:
+            formDuracaoMax = f" AND v.duracao_min <= {form.duracaoMax.data}"
+
+        if form.notaMin.data == '':
+            formNotaMin = ''
+        else:
+            formNotaMin = f" AND v.nota_imdb >= {form.notaMin.data}"
+
+        if form.notaMax.data == '':
+            formNotaMax = ''
+        else:
+            formNotaMax = f" AND v.nota_imdb <= {form.notaMax.data}"
+
+        if form.genero.data is None:
+            formGenero = ''
+        else:
+            formGenero = f" AND (g.genero_1 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_2 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_3 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_4 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_5 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_6 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_7 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_8 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_9 = ANY (array{form.genero.data}) " \
+                         f"OR g.genero_10 = ANY (array{form.genero.data}))"
+
+        query = db.execute(f"SELECT * FROM mostrar_filmes_view v, genero g WHERE v.imdb_id=g.imdb_id"
+                           f"{formAnoMin}{formAnoMax}{formDuracaoMin}{formDuracaoMax}{formNotaMin}"
+                           f"{formNotaMax}{formGenero};").fetchall()
+
+        return render_template('minhalista.html', query=query, form=form)
+
+    else:
+        return render_template('minhalista.html', form=form)
 
 
 @app.route("/filmes/<string:imdbID>", methods=['GET'])

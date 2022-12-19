@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, RadioField, FloatField
+from wtforms import StringField, IntegerField, RadioField, FloatField, SelectMultipleField
 from wtforms.validators import InputRequired, Length, Optional
+from Genero import genero_options
 
 
 class ConsultaForm(FlaskForm):
@@ -14,4 +15,4 @@ class ConsultaForm(FlaskForm):
     notaMin = StringField('Nota (mínimo)', validators=[Optional(), Length(min=1, max=3)])
     notaMax = StringField('Nota (máximo)', validators=[Optional(), Length(min=1, max=3)])
 
-    genero = RadioField('Gênero(s)', choices=['Teste 1', 'Teste 2'], validators=[Optional()])
+    genero = SelectMultipleField('Gênero(s)', choices=genero_options(), validators=[Optional()])
