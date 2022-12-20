@@ -14,4 +14,6 @@ def genero_options():
             if x is not None:
                 generos.append(x)
 
+    generos = list(dict.fromkeys(generos))
+
     return generos
