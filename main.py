@@ -184,17 +184,20 @@ def mostrar_filmes_post():
         if num_results == 0:
             flash("Nenhum filme corresponde aos parâmetros fornecidos...")
 
-        if form.formaConsulta.data == 'Lista':
+            return render_template('minhalista.html', form=form)
 
-            return render_template('minhalista.html', query=query.fetchall(), form=form)
+        else:
+            if form.formaConsulta.data == 'Lista':
 
-        if form.formaConsulta.data == 'Surpreenda-me':
+                return render_template('minhalista.html', query=query.fetchall(), form=form)
 
-            query = query.fetchall()
-            random_film = random.choice(query)
-            query = [random_film]
+            if form.formaConsulta.data == 'Surpreenda-me':
 
-            return render_template('minhalista.html', query=query, form=form)
+                query = query.fetchall()
+                random_film = random.choice(query)
+                query = [random_film]
+
+                return render_template('minhalista.html', query=query, form=form)
 
     else:
         flash("A consulta fornecida não é válida")
