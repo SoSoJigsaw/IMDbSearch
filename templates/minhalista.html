@@ -144,9 +144,11 @@
 
             <div class="container" id="minha-lista">
                 <div id="mostrar-lisa-filmes">
-                    {% if query is none %}
-                            <p class="lista-vazia">Sua lista parece estar vazia. Que tal adicionar um filme?</p>
-                    {% else %}
+                        {% for message in get_flashed_messages() %}
+                             <p class="lista-vazia">{{ message }}</p>
+                        {% endfor %}
+
+                    {% if query %}
                             <table class="table-minha-lista">
                             {% for q in query %}
                                 <tr>

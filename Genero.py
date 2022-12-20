@@ -15,7 +15,3 @@ def genero_options():
                 generos.append(x)
 
     return generos
-
-
-
-genero_options()

@@ -39,11 +39,11 @@ def resultado(imdbID):
 @app.route("/salvar/<string:imdbID>", methods=['GET'])
 def salvar_filme(imdbID):
 
+    data_URL = f"http://www.omdbapi.com/?i={imdbID}&apikey=b0202a42"
+
+    filme = requests.get(data_URL).json()
+
     try:
-
-        data_URL = f"http://www.omdbapi.com/?i={imdbID}&apikey=b0202a42"
-
-        filme = requests.get(data_URL).json()
 
         filme['Year'] = filme['Year'].replace('–', '')
 
@@ -72,6 +72,7 @@ def salvar_filme(imdbID):
         while i <= genre_string.count(','):
             if genre_string.count(',') == 0:
                 genre.append(genre_string)
+                i += 1
             else:
                 genre.append(genre_string.split(",", genre_string.count(','))[i])
                 i += 1
@@ -83,10 +84,11 @@ def salvar_filme(imdbID):
 
         db.execute(f"INSERT INTO genero VALUES ('{filme['imdbID']}', {str(genre)[1:-1]})")
 
-    except:
-        raise
+        return redirect('/filmes')
 
-    return redirect('/filmes')
+    except:
+        flash(f"Não foi possível salvar '{filme['Title']}'. Verifique se o filme já consta em sua lista...")
+        return render_template('error.html')
 
 
 @app.route("/remover/<string:imdbID>", methods=['GET'])
@@ -98,10 +100,13 @@ def apagar_filme(imdbID):
 
         db.execute(f"DELETE FROM filme WHERE imdb_id= '{imdbID}';")
 
-    except:
-        raise
+        return redirect('/filmes')
 
-    return redirect('/filmes')
+    except:
+
+        flash(f"Não foi possível remover o filme. Tente novamente...")
+
+        return render_template('error.html')
 
 
 @app.route("/filmes", methods=['GET'])
@@ -109,9 +114,15 @@ def mostrar_filmes():
 
     form = ConsultaForm()
 
-    query = db.execute("SELECT * FROM mostrar_filmes_view;").fetchall()
+    query = db.execute("SELECT * FROM mostrar_filmes_view;")
 
-    return render_template('minhalista.html', query=query, form=form)
+    num_results = query.rowcount
+    num_results = int(num_results)
+    if num_results == 0:
+
+        flash("Sua lista parece estar vazia. Que tal adicionar um filme?")
+
+    return render_template('minhalista.html', query=query.fetchall(), form=form)
 
 
 @app.route("/filmes", methods=['POST'])
@@ -166,21 +177,28 @@ def mostrar_filmes_post():
 
         query = db.execute(f"SELECT * FROM mostrar_filmes_view v, genero g WHERE v.imdb_id=g.imdb_id"
                            f"{formAnoMin}{formAnoMax}{formDuracaoMin}{formDuracaoMax}{formNotaMin}"
-                           f"{formNotaMax}{formGenero};").fetchall()
+                           f"{formNotaMax}{formGenero};")
+
+        num_results = query.rowcount
+        num_results = int(num_results)
+        if num_results == 0:
+            flash("Nenhum filme corresponde aos parâmetros fornecidos...")
 
         if form.formaConsulta.data == 'Lista':
 
-            return render_template('minhalista.html', query=query, form=form)
+            return render_template('minhalista.html', query=query.fetchall(), form=form)
 
         if form.formaConsulta.data == 'Surpreenda-me':
 
+            query = query.fetchall()
             random_film = random.choice(query)
             query = [random_film]
 
             return render_template('minhalista.html', query=query, form=form)
 
     else:
-        return render_template('minhalista.html', form=form)
+        flash("A consulta fornecida não é válida")
+        return render_template('error.html')
 
 
 @app.route("/filmes/<string:imdbID>", methods=['GET'])
