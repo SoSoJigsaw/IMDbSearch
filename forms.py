@@ -1,20 +1,24 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectMultipleField, SelectField
-from wtforms.validators import InputRequired, Length, Optional
+from wtforms import StringField, SelectMultipleField, SelectField, IntegerField, FloatField
+from wtforms.validators import InputRequired, Length, Optional, NumberRange
 from Genero import genero_options
+import datetime
 
 
 class ConsultaForm(FlaskForm):
 
-    formaConsulta = SelectField('Forma de consulta', choices=['Lista', 'Surpreenda-me'], validators=[InputRequired()])
+    today = datetime.date.today()
 
-    anoMin = StringField('Ano (mínimo)', validators=[Optional(), Length(min=4, max=4)])
-    anoMax = StringField('Ano (máximo)', validators=[Optional(), Length(min=4, max=4)])
+    formaConsulta = SelectField('Forma de filtro:', choices=['Lista', 'Aleatório'], validators=[InputRequired()])
 
-    duracaoMin = StringField('Duração em minutos (mínimo)', validators=[Optional(), Length(min=1, max=3)])
-    duracaoMax = StringField('Duração em minutos (máximo)', validators=[Optional(), Length(min=1, max=3)])
+    anoMin = IntegerField('Ano (mín):', validators=[Optional(), NumberRange(min=1900, max=today.year)])
+    anoMax = IntegerField('Ano (máx):', validators=[Optional(), NumberRange(min=1900, max=today.year)])
 
-    notaMin = StringField('Nota (mínimo)', validators=[Optional(), Length(min=1, max=3)])
-    notaMax = StringField('Nota (máximo)', validators=[Optional(), Length(min=1, max=3)])
+    duracaoMin = IntegerField('Duração em minutos (mín):', validators=[Optional(), NumberRange(min=1, max=300)])
+    duracaoMax = IntegerField('Duração em minutos (máx):', validators=[Optional(), NumberRange(min=1, max=300)])
 
-    genero = SelectMultipleField('Gênero(s)', choices=genero_options(), validators=[Optional()])
+    notaMin = FloatField('Nota (mín):', validators=[Optional(), NumberRange(min=1, max=10)])
+    notaMax = FloatField('Nota (máx):', validators=[Optional(), NumberRange(min=1, max=10)])
+
+    genero = SelectMultipleField('Gênero(s):', choices=genero_options(), validators=[Optional()],
+                                 render_kw={"data-placeholder": "Escolha..."})

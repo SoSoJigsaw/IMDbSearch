@@ -17,3 +17,13 @@ function removerMinhaLista() {
 
 }
 
+
+// Função que abre o formulário de consulta
+function abrirForm() {
+  document.getElementById("consulta-minha-lista").style.display = "block";
+}
+
+// Função que fecha o formulário de consulta
+function fecharForm() {
+  document.getElementById("consulta-minha-lista").style.display = "none";
+}

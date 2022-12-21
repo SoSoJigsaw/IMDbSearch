@@ -131,32 +131,32 @@ def mostrar_filmes_post():
     form = ConsultaForm()
 
     if form.validate_on_submit():
-        if form.anoMin.data == '':
+        if form.anoMin.data == '' or form.anoMin.data is None:
             formAnoMin = ''
         else:
             formAnoMin = f" AND v.ano >= {form.anoMin.data}"
 
-        if form.anoMax.data == '':
+        if form.anoMax.data == '' or form.anoMax.data is None:
             formAnoMax = ''
         else:
             formAnoMax = f" AND v.ano <= {form.anoMax.data}"
 
-        if form.duracaoMin.data == '':
+        if form.duracaoMin.data == '' or form.duracaoMin.data is None:
             formDuracaoMin = ''
         else:
             formDuracaoMin = f" AND v.duracao_min >= {form.duracaoMin.data}"
 
-        if form.duracaoMax.data == '':
+        if form.duracaoMax.data == '' or form.duracaoMax.data is None:
             formDuracaoMax = ''
         else:
             formDuracaoMax = f" AND v.duracao_min <= {form.duracaoMax.data}"
 
-        if form.notaMin.data == '':
+        if form.notaMin.data == '' or form.notaMin.data is None:
             formNotaMin = ''
         else:
             formNotaMin = f" AND v.nota_imdb >= {form.notaMin.data}"
 
-        if form.notaMax.data == '':
+        if form.notaMax.data == '' or form.notaMax.data is None:
             formNotaMax = ''
         else:
             formNotaMax = f" AND v.nota_imdb <= {form.notaMax.data}"
@@ -191,7 +191,7 @@ def mostrar_filmes_post():
 
                 return render_template('minhalista.html', query=query.fetchall(), form=form)
 
-            if form.formaConsulta.data == 'Surpreenda-me':
+            if form.formaConsulta.data == 'Aleatório':
 
                 query = query.fetchall()
                 random_film = random.choice(query)

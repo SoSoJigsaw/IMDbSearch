@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Lista</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel = "stylesheet" href = "static/css/style.css">
 </head>
@@ -27,10 +30,15 @@
 
         <main>
 
-            <div class="container" id="form-minha-lista">
-                <form method="POST" action="/filmes">
+            <div class="container" id="container-botao-abrir">
+            <button class="botao-abrir-form" onclick="abrirForm()"><i class="fa-solid fa-filter"></i>Filtrar</button>
+            </div>
+
+            <div class="container" id="consulta-minha-lista">
+                <form class="form-minha-lista" method="POST" action="/filmes">
                     {{ form.csrf_token }}
 
+                <div class="linha-forma-consulta">
                     <p>
                         {{ form.formaConsulta.label }}
                         {{ form.formaConsulta() }}
@@ -43,7 +51,9 @@
                     {% endfor %}
                     </ul>
                 {% endif %}
+                </div>
 
+                <div class="linha-ano">
                     <p>
                     {{ form.anoMin.label }}
                     {{ form.anoMin() }}
@@ -69,7 +79,9 @@
                         {% endfor %}
                     </ul>
                     {% endif %}
+                </div>
 
+                <div class="linha-duracao">
                     <p>
                     {{ form.duracaoMin.label }}
                     {{ form.duracaoMin() }}
@@ -95,7 +107,9 @@
                         {% endfor %}
                     </ul>
                     {% endif %}
+                </div>
 
+                <div class="linha-nota">
                     <p>
                     {{ form.notaMin.label }}
                     {{ form.notaMin() }}
@@ -121,10 +135,12 @@
                         {% endfor %}
                     </ul>
                     {% endif %}
+                </div>
 
+                <div class="linha-genero">
                     <p>
                         {{ form.genero.label }}
-                        {{ form.genero() }}
+                        {{ form.genero(class="chosen-select") }}
                     </p>
 
                 {% if form.genero.errors %}
@@ -134,10 +150,17 @@
                     {% endfor %}
                     </ul>
                 {% endif %}
+                </div>
+
+                <div class="linha-botao">
+                <p>
+                    <input type="submit" value="Consultar">
+                </p>
 
                 <p>
-                    <input type="submit" value="Add">
+                    <button type="button" class="botao-cancelar" onclick="fecharForm()">Fechar</button>
                 </p>
+                </div>
 
                 </form>
             </div>
@@ -152,7 +175,7 @@
                             <table class="table-minha-lista">
                             {% for q in query %}
                                 <tr>
-                                    <td class="table-poster" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;"><img src="{{ q[6] }}" alt="" border=3 height=100 width=300></img></td>
+                                    <td class="table-poster" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;"><img src="{{ q[6] }}" alt="" border=3 height=150 width=450></img></td>
                                     <td class="table-titulo" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[1] }}</td>
                                     <td class="ano" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[2] }}</td>
                                     <td class="table-duracao" onclick="window.location='filmes/{{ q[0] }}';" style="cursor: pointer;">{{ q[3] }} min</td>
@@ -174,5 +197,6 @@
 
 
     <script src="../static/js/minhaLista.js"></script>
+    <script src="../static/js/chosen.js"></script>
 </body>
 </html>

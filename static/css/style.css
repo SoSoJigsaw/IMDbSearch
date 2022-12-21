@@ -468,3 +468,192 @@ img {
     }
 
 }
+
+/* Tela minhalista.html */
+
+/* Tabela dos filmes adicionados à Minha Lista */
+tr:nth-child(odd)   { background-color:var(--off-white);}
+tr:nth-child(even)    { background-color:var(--rafia);}
+
+.table-minha-lista {
+    border-collapse:collapse;
+    margin: 0px auto;
+}
+
+.table-minha-lista td {
+    font-size: 20px;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.table-botao-remover {
+    background-color: transparent;
+    display: inline-block;
+    border: none;
+    height: 50px;
+    width: auto;
+}
+
+.table-botao-remover i {
+    color: var(--azul-profundo);
+    font-size: 30px;
+}
+
+.table-avaliacao {
+    font-style: italic;
+    font-size: 20px !important;
+    color: var(--amarelo);
+}
+
+.table-avaliacao i {
+    color: var(--amarelo);
+    font-size: 20px;
+}
+
+/* Formulário de consulta aos filmes da Minha Lista */
+#consulta-minha-lista {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 9;
+}
+
+.form-minha-lista {
+  max-width: 750px;
+  background-color: var(--off-white);
+  border: 2px solid var(--rafia);
+  border-radius: 5px;
+}
+
+#container-botao-abrir {
+    padding: 20px;
+}
+
+.botao-abrir-form {
+    color: var(--azul-profundo);
+    background-color: transparent;
+    border: 0px solid transparent;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.botao-abrir-form i {
+    color: var(--azul-profundo);
+    margin: 1rem 0.4rem 0 0;
+}
+
+
+.linha-ano p {
+    display: inline-block;
+    padding: 15px;
+}
+
+.linha-duracao p {
+    display: inline-block;
+    padding: 15px;
+}
+
+.linha-nota p {
+    display: inline-block;
+    padding: 15px;
+}
+
+.linha-genero p {
+    padding: 15px;
+}
+
+.linha-forma-consulta p {
+    padding: 15px;
+}
+
+.linha-botao p {
+    display: inline-block;
+    padding: 10px;
+}
+
+.linha-botao {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.linha-ano input {
+    font-size: 18px;
+    text-align: center;
+    background-color: #fff;
+    border: 0.5px solid;
+    border-color: var(--rafia);
+    border-radius: 2px;
+    width: 80px;
+}
+
+.linha-duracao input {
+    font-size: 18px;
+    text-align: center;
+    background-color: #fff;
+    border: 0.5px solid;
+    border-color: var(--rafia);
+    border-radius: 2px;
+    width: 80px;
+}
+
+.linha-nota input {
+    font-size: 18px;
+    text-align: center;
+    background-color: #fff;
+    border: 0.5px solid;
+    border-color: var(--rafia);
+    border-radius: 2px;
+    width: 60px;
+}
+
+.linha-genero ul {
+    text-align: center !important;
+    background-color: #fff !important;
+    border: 0.5px solid !important;
+    border-color: var(--rafia) !important;
+    border-radius: 2px !important;
+    width: 200px !important;
+}
+
+.linha-forma-consulta select {
+    font-size: 18px;
+    text-align: center;
+    background-color: #fff;
+    border: 0.5px solid;
+    border-color: var(--rafia);
+    border-radius: 2px;
+    width: 120px;
+}
+
+.linha-botao input {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--azul-profundo);
+    border: 0.5px solid;
+    border-color: var(--azul-profundo);
+    border-radius: 5px;
+    width: 85px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.botao-cancelar {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--vermelho);
+    border: 0.5px solid;
+    border-color: var(--vermelho);
+    border-radius: 5px;
+    width: 85px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
