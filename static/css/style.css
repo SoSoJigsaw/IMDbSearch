@@ -494,11 +494,17 @@ tr:nth-child(even)    { background-color:var(--rafia);}
     border: none;
     height: 50px;
     width: auto;
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 .table-botao-remover i {
     color: var(--azul-profundo);
     font-size: 30px;
+}
+
+.table-botao-remover:hover {
+    opacity: 1;
 }
 
 .table-avaliacao {
@@ -540,6 +546,7 @@ tr:nth-child(even)    { background-color:var(--rafia);}
     border: 0px solid transparent;
     font-size: 24px;
     cursor: pointer;
+    opacity: 0.8;
 }
 
 .botao-abrir-form i {
@@ -547,6 +554,9 @@ tr:nth-child(even)    { background-color:var(--rafia);}
     margin: 1rem 0.4rem 0 0;
 }
 
+.botao-abrir-form:hover {
+    opacity: 1;
+}
 
 .linha-ano p {
     display: inline-block;
@@ -642,6 +652,11 @@ tr:nth-child(even)    { background-color:var(--rafia);}
     padding-top: 10px;
     padding-bottom: 10px;
     cursor: pointer;
+    opacity: 0.8;
+}
+
+.linha-botao input:hover {
+    opacity: 1;
 }
 
 .botao-cancelar {
@@ -656,4 +671,9 @@ tr:nth-child(even)    { background-color:var(--rafia);}
     padding-top: 10px;
     padding-bottom: 10px;
     cursor: pointer;
+    opacity: 0.8;
+}
+
+.botao-cancelar:hover {
+    opacity: 1;
 }

@@ -200,7 +200,7 @@ def mostrar_filmes_post():
                 return render_template('minhalista.html', query=query, form=form)
 
     else:
-        flash("A consulta fornecida não é válida")
+        flash("Os parâmetros fornecidos não são válidos. Tente novamente...")
         return render_template('error.html')
 
 
