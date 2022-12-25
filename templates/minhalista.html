@@ -34,6 +34,12 @@
             <button class="botao-abrir-form" onclick="abrirForm()"><i class="fa-solid fa-filter"></i>Filtrar</button>
             </div>
 
+            <div class="container" id="container-parametros-pesquisa">
+                {% if parametros %}
+                    {{ parametros }}
+                {% endif %}
+            </div>
+
             <div class="container" id="consulta-minha-lista">
                 <form class="form-minha-lista" method="POST" action="/filmes">
                     {{ form.csrf_token }}

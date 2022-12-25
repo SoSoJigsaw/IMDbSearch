@@ -1,8 +1,9 @@
 import json
 import random
+import datetime
 from sqlalchemy import create_engine
 import requests
-from flask import Flask, render_template, request, jsonify, flash, redirect
+from flask import Flask, render_template, request, jsonify, flash, redirect, Markup
 from forms import ConsultaForm
 
 app = Flask(__name__)
@@ -133,36 +134,49 @@ def mostrar_filmes_post():
     if form.validate_on_submit():
         if form.anoMin.data == '' or form.anoMin.data is None:
             formAnoMin = ''
+            htmlAnoMin = 1900
         else:
             formAnoMin = f" AND v.ano >= {form.anoMin.data}"
+            htmlAnoMin = form.anoMin.data
 
         if form.anoMax.data == '' or form.anoMax.data is None:
             formAnoMax = ''
+            htmlAnoMax = datetime.date.today().year
         else:
             formAnoMax = f" AND v.ano <= {form.anoMax.data}"
+            htmlAnoMax = form.anoMax.data
 
         if form.duracaoMin.data == '' or form.duracaoMin.data is None:
             formDuracaoMin = ''
+            htmlDuracaoMin = 1
         else:
             formDuracaoMin = f" AND v.duracao_min >= {form.duracaoMin.data}"
+            htmlDuracaoMin = form.duracaoMin.data
 
         if form.duracaoMax.data == '' or form.duracaoMax.data is None:
             formDuracaoMax = ''
+            htmlDuracaoMax = 300
         else:
             formDuracaoMax = f" AND v.duracao_min <= {form.duracaoMax.data}"
+            htmlDuracaoMax = form.duracaoMax.data
 
         if form.notaMin.data == '' or form.notaMin.data is None:
             formNotaMin = ''
+            htmlNotaMin = 1
         else:
             formNotaMin = f" AND v.nota_imdb >= {form.notaMin.data}"
+            htmlNotaMin = form.notaMin.data
 
         if form.notaMax.data == '' or form.notaMax.data is None:
             formNotaMax = ''
+            htmlNotaMax = 10
         else:
             formNotaMax = f" AND v.nota_imdb <= {form.notaMax.data}"
+            htmlNotaMax = form.notaMax.data
 
         if not form.genero.data:
             formGenero = ''
+            htmlGenero = 'Todos'
         else:
             formGenero = f" AND (g.genero_1 = ANY (array{form.genero.data}) " \
                          f"OR g.genero_2 = ANY (array{form.genero.data}) " \
@@ -174,22 +188,30 @@ def mostrar_filmes_post():
                          f"OR g.genero_8 = ANY (array{form.genero.data}) " \
                          f"OR g.genero_9 = ANY (array{form.genero.data}) " \
                          f"OR g.genero_10 = ANY (array{form.genero.data}))"
+            htmlGenero = str(form.genero.data)[1:-1]
 
         query = db.execute(f"SELECT * FROM mostrar_filmes_view v, genero g WHERE v.imdb_id=g.imdb_id"
                            f"{formAnoMin}{formAnoMax}{formDuracaoMin}{formDuracaoMax}{formNotaMin}"
                            f"{formNotaMax}{formGenero};")
+
+        parametros = Markup(f'<h1 class="parametros-pesquisa"> '
+                            f'<b>Modo:</b> {form.formaConsulta.data}, '
+                            f'<b>Ano:</b> de {htmlAnoMin} até {htmlAnoMax}, '
+                            f'<b>Duração:</b> de {htmlDuracaoMin} até {htmlDuracaoMax} minutos, '
+                            f'<b>Nota:</b> de {htmlNotaMin} até {htmlNotaMax}, '
+                            f'<b>Gênero(s):</b> {htmlGenero}.</h1>')
 
         num_results = query.rowcount
         num_results = int(num_results)
         if num_results == 0:
             flash("Nenhum filme corresponde aos parâmetros fornecidos...")
 
-            return render_template('minhalista.html', form=form)
+            return render_template('minhalista.html', form=form, parametros=parametros)
 
         else:
             if form.formaConsulta.data == 'Lista':
 
-                return render_template('minhalista.html', query=query.fetchall(), form=form)
+                return render_template('minhalista.html', query=query.fetchall(), form=form, parametros=parametros)
 
             if form.formaConsulta.data == 'Aleatório':
 
@@ -197,7 +219,7 @@ def mostrar_filmes_post():
                 random_film = random.choice(query)
                 query = [random_film]
 
-                return render_template('minhalista.html', query=query, form=form)
+                return render_template('minhalista.html', query=query, form=form, parametros=parametros)
 
     else:
         flash("Os parâmetros fornecidos não são válidos. Tente novamente...")

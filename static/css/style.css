@@ -140,6 +140,7 @@ img {
 
 .lista-vazia {
     font-size: 24pt;
+    text-align: center;
     color: var(--azul-profundo);
     padding-top: 80px;
 }
@@ -537,6 +538,7 @@ tr:nth-child(even)    { background-color:var(--rafia);}
 }
 
 #container-botao-abrir {
+    display: inline-block;
     padding: 20px;
 }
 
@@ -556,6 +558,16 @@ tr:nth-child(even)    { background-color:var(--rafia);}
 
 .botao-abrir-form:hover {
     opacity: 1;
+}
+
+#container-parametros-pesquisa {
+    padding-bottom: 20px;
+}
+
+.parametros-pesquisa {
+    font-size: 18px;
+    color: var(--azul-profundo);
+    text-align: center;
 }
 
 .linha-ano p {
@@ -676,4 +688,12 @@ tr:nth-child(even)    { background-color:var(--rafia);}
 
 .botao-cancelar:hover {
     opacity: 1;
+}
+
+/* Mensagens flash */
+.flash {
+    color: var(--vermelho);
+    text-align: center;
+    font-size: 24pt;
+    padding-top: 80px;
 }
