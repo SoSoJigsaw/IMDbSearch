@@ -27,6 +27,12 @@
 
         <main>
 
+            <!-- Container de botẽes -->
+            <div class="container" id="container-botao-retornar">
+                 <a class="botao-retornar-pesquisa" href="{{ url_for(url) }}"><i class="fa-solid fa-arrow-turn-down-left"></i>Retornar</a>
+            </div>
+            <!-- fim do container de botões -->
+
             <div class="container" id="minha-lista">
                 <div id="mostrar-lisa-filmes">
                     {% for message in get_flashed_messages() %}
@@ -37,5 +43,7 @@
         </main>
     </div>
 
+    <script src="../../../../../../../../../static/js/consumoAPI.js"></script>
+    <script src="../../../../../../../../../static/js/minhaLista.js"></script>
 </body>
 </html>

@@ -89,7 +89,10 @@ def salvar_filme(imdbID):
 
     except:
         flash(f"Não foi possível salvar '{filme['Title']}'. Verifique se o filme já consta em sua lista...")
-        return render_template('error.html')
+
+        redirect_url = 'pesquisa'
+
+        return render_template('error.html', url=redirect_url)
 
 
 @app.route("/remover/<string:imdbID>", methods=['GET'])
@@ -107,7 +110,9 @@ def apagar_filme(imdbID):
 
         flash(f"Não foi possível remover o filme. Tente novamente...")
 
-        return render_template('error.html')
+        redirect_url = 'mostrar_filmes'
+
+        return render_template('error.html', url=redirect_url)
 
 
 @app.route("/filmes", methods=['GET'])
@@ -206,19 +211,21 @@ def mostrar_filmes_post():
                             f'<b>Nota:</b> de {htmlNotaMin} até {htmlNotaMax}, '
                             f'<b>Gênero(s):</b> {htmlGenero}.</h1>')
 
+        botao_resetar = ''
+
         num_results = query.rowcount
         num_results = int(num_results)
         if num_results == 0:
             flash("Nenhum filme corresponde aos parâmetros fornecidos...")
 
-            return render_template('minhalista.html', form=form, parametros=parametros)
+            return render_template('minhalista.html', form=form, parametros=parametros, resetar=botao_resetar)
 
         else:
             if formaConsulta == 'Lista':
 
                 return render_template('minhalista.html', query=query.fetchall(), form=form, parametros=parametros,
                                        html=[formaConsulta, htmlAnoMin, htmlAnoMax, htmlDuracaoMin, htmlDuracaoMax, htmlNotaMin,
-                                             htmlNotaMax, urlGenero])
+                                             htmlNotaMax, urlGenero], resetar=botao_resetar)
 
             if formaConsulta == 'Aleatório':
 
@@ -228,11 +235,15 @@ def mostrar_filmes_post():
 
                 return render_template('minhalista.html', query=query, form=form, parametros=parametros,
                                        html=[formaConsulta, htmlAnoMin, htmlAnoMax, htmlDuracaoMin, htmlDuracaoMax, htmlNotaMin,
-                                             htmlNotaMax, urlGenero])
+                                             htmlNotaMax, urlGenero], resetar=botao_resetar)
 
     else:
+
         flash("Os parâmetros fornecidos não são válidos. Tente novamente...")
-        return render_template('error.html')
+
+        redirect_url = 'mostrar_filmes'
+
+        return render_template('error.html', url=redirect_url)
 
 
 @app.route("/filmes/<string:formaConsulta>/<int:anoMin>/<int:anoMax>/<int:duracaoMin>/<int:duracaoMax>/<string:notaMin"
@@ -293,10 +304,12 @@ def mostrar_filmes_reload(formaConsulta, anoMin, anoMax, duracaoMin, duracaoMax,
                         f'<b>Nota:</b> de {htmlNotaMin} até {htmlNotaMax}, '
                         f'<b>Gênero(s):</b> {htmlGenero}.</h1>')
 
+    botao_resetar = ''
+
     if formaConsulta == 'Lista':
         return render_template('minhalista.html', query=query.fetchall(), form=form, parametros=parametros,
                                html=[formaConsulta, htmlAnoMin, htmlAnoMax, htmlDuracaoMin, htmlDuracaoMax, htmlNotaMin,
-                                     htmlNotaMax, urlGenero])
+                                     htmlNotaMax, urlGenero], resetar=botao_resetar)
 
     if formaConsulta == 'Aleatório':
         query = query.fetchall()
@@ -305,7 +318,7 @@ def mostrar_filmes_reload(formaConsulta, anoMin, anoMax, duracaoMin, duracaoMax,
 
         return render_template('minhalista.html', query=query, form=form, parametros=parametros,
                                html=[formaConsulta, htmlAnoMin, htmlAnoMax, htmlDuracaoMin, htmlDuracaoMax, htmlNotaMin,
-                                     htmlNotaMax, urlGenero])
+                                     htmlNotaMax, urlGenero], resetar=botao_resetar)
 
 
 @app.route("/filmes/<string:imdbID>", methods=['GET'])

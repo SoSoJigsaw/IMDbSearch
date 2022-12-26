@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectMultipleField, SelectField, IntegerField, FloatField
-from wtforms.validators import InputRequired, Length, Optional, NumberRange
+from wtforms import SelectMultipleField, SelectField, IntegerField, DecimalField
+from wtforms.validators import InputRequired, Optional, NumberRange
 from Genero import genero_options
 import datetime
 
@@ -17,8 +17,8 @@ class ConsultaForm(FlaskForm):
     duracaoMin = IntegerField('Duração em minutos (mín):', validators=[Optional(), NumberRange(min=1, max=300)])
     duracaoMax = IntegerField('Duração em minutos (máx):', validators=[Optional(), NumberRange(min=1, max=300)])
 
-    notaMin = FloatField('Nota (mín):', validators=[Optional(), NumberRange(min=1, max=10)])
-    notaMax = FloatField('Nota (máx):', validators=[Optional(), NumberRange(min=1, max=10)])
+    notaMin = DecimalField('Nota (mín):', validators=[Optional(), NumberRange(min=0, max=10)])
+    notaMax = DecimalField('Nota (máx):', validators=[Optional(), NumberRange(min=0, max=10)])
 
     genero = SelectMultipleField('Gênero(s):', choices=genero_options(), validators=[Optional()],
                                  render_kw={"data-placeholder": "Escolha..."})

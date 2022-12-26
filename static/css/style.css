@@ -630,7 +630,7 @@ tr:nth-child(even)    { background-color:var(--rafia);}
     border: 0.5px solid;
     border-color: var(--rafia);
     border-radius: 2px;
-    width: 60px;
+    width: 80px;
 }
 
 .linha-genero ul {

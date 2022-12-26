@@ -31,7 +31,10 @@
         <main>
 
             <div class="container" id="container-botao-abrir">
-            <button class="botao-abrir-form" onclick="abrirForm()"><i class="fa-solid fa-filter"></i>Filtrar</button>
+                <button class="botao-abrir-form" onclick="abrirForm()"><i class="fa-solid fa-filter"></i>Filtrar</button>
+                {% if resetar == '' %}
+                <a class="botao-resetar" href="{{ url_for('mostrar_filmes') }}"><i class="fa-solid fa-rotate-left"></i>Resetar</a>
+                {% endif %}
             </div>
 
             <div class="container" id="container-parametros-pesquisa">
@@ -190,7 +193,7 @@
                                     <td class="table-avaliacao"><a href="{{ url_for('mostrar_detalhes_filme_reload', imdbID=q[0], formaConsulta=html[0], anoMin=html[1], anoMax=html[2], duracaoMin=html[3], duracaoMax=html[4], notaMin=html[5], notaMax=html[6], genero=html[7]) }}" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-star"></i>{{ q[5] }}</a></td>
                                     <td class="table-botao">
                                         <span id="{{ q[0] }}" class="hide id-filme">{{ q[0] }}</span>
-                                        <a href="{{ url_for('mostrar_detalhes_filme_reload', imdbID=q[0], formaConsulta=html[0], anoMin=html[1], anoMax=html[2], duracaoMin=html[3], duracaoMax=html[4], notaMin=html[5], notaMax=html[6], genero=html[7]) }}" style="cursor: pointer;"><button class="table-botao-remover"><i class="fa-solid fa-circle-minus"></i></button></a>
+                                        <a href="{{ url_for('apagar_filme', imdbID=q[0]) }}" style="cursor: pointer;"><button class="table-botao-remover"><i class="fa-solid fa-circle-minus"></i></button></a>
                                     </td>
                                     {% else %}
                                     <td class="table-poster"><a href="{{ url_for('mostrar_detalhes_filme', imdbID=q[0]) }}" style="cursor: pointer;"><img src="{{ q[6] }}" alt="" border=3 height=150 width=450></img></a></td>
@@ -201,7 +204,7 @@
                                     <td class="table-avaliacao"><a href="{{ url_for('mostrar_detalhes_filme', imdbID=q[0]) }}" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-star"></i>{{ q[5] }}</a></td>
                                     <td class="table-botao">
                                         <span id="{{ q[0] }}" class="hide id-filme">{{ q[0] }}</span>
-                                        <a href="{{ url_for('mostrar_detalhes_filme', imdbID=q[0]) }}" style="cursor: pointer;"><button class="table-botao-remover"><i class="fa-solid fa-circle-minus"></i></button></a>
+                                        <a href="{{ url_for('apagar_filme', imdbID=q[0]) }}" style="cursor: pointer;"><button class="table-botao-remover"><i class="fa-solid fa-circle-minus"></i></button></a>
                                     </td>
                                     {% endif %}
                                 </tr>
