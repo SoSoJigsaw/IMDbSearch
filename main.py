@@ -202,7 +202,7 @@ def mostrar_filmes_post():
 
         query = db.execute(f"SELECT * FROM mostrar_filmes_view v, genero g WHERE v.imdb_id=g.imdb_id"
                            f"{formAnoMin}{formAnoMax}{formDuracaoMin}{formDuracaoMax}{formNotaMin}"
-                           f"{formNotaMax}{formGenero};")
+                           f"{formNotaMax}{formGenero} ORDER BY v.datahora DESC;")
 
         parametros = Markup(f'<h1 class="parametros-pesquisa"> '
                             f'<b>Modo:</b> {formaConsulta}, '
@@ -295,7 +295,7 @@ def mostrar_filmes_reload(formaConsulta, anoMin, anoMax, duracaoMin, duracaoMax,
 
     query = db.execute(f"SELECT * FROM mostrar_filmes_view v, genero g WHERE v.imdb_id=g.imdb_id"
                        f"{formAnoMin}{formAnoMax}{formDuracaoMin}{formDuracaoMax}{formNotaMin}"
-                       f"{formNotaMax}{formGenero};")
+                       f"{formNotaMax}{formGenero} ORDER BY v.datahora DESC;")
 
     parametros = Markup(f'<h1 class="parametros-pesquisa"> '
                         f'<b>Modo:</b> {formaConsulta}, '

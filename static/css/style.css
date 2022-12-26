@@ -272,7 +272,7 @@ img {
 }
 
 .container-resultado {
-    padding: 3rem 0;
+    padding: 1rem 0;
 }
 
 .filme-poster img {
@@ -519,6 +519,10 @@ tr:nth-child(even)    { background-color:var(--rafia);}
     font-size: 20px;
 }
 
+a {
+    color: var(--azul-profundo);
+}
+
 /* Formulário de consulta aos filmes da Minha Lista */
 #consulta-minha-lista {
   display: none;
@@ -557,6 +561,33 @@ tr:nth-child(even)    { background-color:var(--rafia);}
 }
 
 .botao-abrir-form:hover {
+    opacity: 1;
+}
+
+.botao-resetar {
+    color: var(--azul-profundo);
+    background-color: transparent;
+    border: 0px solid transparent;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+    padding-left: 10px;
+}
+
+.botao-resetar button {
+    color: var(--azul-profundo);
+    background-color: transparent;
+    border: 0px solid transparent;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.botao-resetar i {
+    color: var(--azul-profundo);
+    margin: 1rem 0.4rem 0 0;
+}
+
+.botao-resetar:hover {
     opacity: 1;
 }
 
@@ -716,4 +747,8 @@ tr:nth-child(even)    { background-color:var(--rafia);}
 .botao-retornar-pesquisa i {
     color: var(--azul-profundo);
     margin: 1rem 0.4rem 0 0;
+}
+
+.botao-retornar-pesquisa:hover {
+    opacity: 1;
 }

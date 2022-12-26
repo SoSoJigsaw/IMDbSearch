@@ -33,7 +33,7 @@
             <div class="container" id="container-botao-abrir">
                 <button class="botao-abrir-form" onclick="abrirForm()"><i class="fa-solid fa-filter"></i>Filtrar</button>
                 {% if resetar == '' %}
-                <a class="botao-resetar" href="{{ url_for('mostrar_filmes') }}"><i class="fa-solid fa-rotate-left"></i>Resetar</a>
+                <a class="botao-resetar" href="{{ url_for('mostrar_filmes') }}"><button><i class="fa-solid fa-rotate-left"></i>Resetar</button></a>
                 {% endif %}
             </div>
 

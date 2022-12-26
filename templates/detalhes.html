@@ -30,7 +30,7 @@
         <!-- Container de botẽes -->
         <div class="container" id="container-botao-retornar">
             {% if html %}
-            <button class="botao-retornar-pesquisa" onclick="retornarPesquisa();"><i class="fa-solid fa-arrow-turn-down-left"></i>Retornar</button>
+            <button class="botao-retornar-pesquisa" onclick="retornarPesquisa();"><i class="fa-solid fa-arrow-left"></i>Retornar</button>
             <span class="hide html" id="formaConsulta">{{ html[0] }}</span>
             <span class="hide html" id="anoMin">{{ html[1] }}</span>
             <span class="hide html" id="anoMax">{{ html[2] }}</span>
@@ -40,7 +40,7 @@
             <span class="hide html" id="notaMax">{{ html[6] }}</span>
             <span class="hide html" id="genero-pesquisa">{{ html[7] }}</span>
             {% else %}
-            <button class="botao-retornar-pesquisa" onclick="retornarFilmes();"><i class="fa-solid fa-arrow-turn-down-left"></i>Retornar</button>
+            <button class="botao-retornar-pesquisa" onclick="retornarFilmes();"><i class="fa-solid fa-arrow-left"></i>Retornar</button>
             {% endif %}
         </div>
         <!-- fim do container de botões -->
