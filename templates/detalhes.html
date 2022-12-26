@@ -17,7 +17,10 @@
         <div class="header">
             <div class="container">
                 <img src="../../../../../../../../../static/image/ImdbSearch.png">
-                <a href="minhalista.html" class="lista-filmes-assistir"><i class="fa-solid fa-heart"></i><b>Minha Lista</b></a>
+                <ul>
+                     <li><a href="{{ url_for('pesquisa') }}"><b>Pesquisar</b></a></li>
+                     <li><a href="{{ url_for('mostrar_filmes') }}"><b>Minha Lista</b></a></li>
+                </ul>
             </div>
         </div>
 
