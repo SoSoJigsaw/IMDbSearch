@@ -177,6 +177,7 @@ def mostrar_filmes_post():
         if not form.genero.data:
             formGenero = ''
             htmlGenero = 'Todos'
+            urlGenero = 'Todos'
         else:
             formGenero = f" AND (g.genero_1 = ANY (array{form.genero.data}) " \
                          f"OR g.genero_2 = ANY (array{form.genero.data}) " \
@@ -189,13 +190,17 @@ def mostrar_filmes_post():
                          f"OR g.genero_9 = ANY (array{form.genero.data}) " \
                          f"OR g.genero_10 = ANY (array{form.genero.data}))"
             htmlGenero = str(form.genero.data)[1:-1]
+            htmlGenero = htmlGenero.replace("'", "")
+            urlGenero = htmlGenero.replace(", ", "*")
+
+        formaConsulta = form.formaConsulta.data
 
         query = db.execute(f"SELECT * FROM mostrar_filmes_view v, genero g WHERE v.imdb_id=g.imdb_id"
                            f"{formAnoMin}{formAnoMax}{formDuracaoMin}{formDuracaoMax}{formNotaMin}"
                            f"{formNotaMax}{formGenero};")
 
         parametros = Markup(f'<h1 class="parametros-pesquisa"> '
-                            f'<b>Modo:</b> {form.formaConsulta.data}, '
+                            f'<b>Modo:</b> {formaConsulta}, '
                             f'<b>Ano:</b> de {htmlAnoMin} até {htmlAnoMax}, '
                             f'<b>Duração:</b> de {htmlDuracaoMin} até {htmlDuracaoMax} minutos, '
                             f'<b>Nota:</b> de {htmlNotaMin} até {htmlNotaMax}, '
@@ -209,21 +214,98 @@ def mostrar_filmes_post():
             return render_template('minhalista.html', form=form, parametros=parametros)
 
         else:
-            if form.formaConsulta.data == 'Lista':
+            if formaConsulta == 'Lista':
 
-                return render_template('minhalista.html', query=query.fetchall(), form=form, parametros=parametros)
+                return render_template('minhalista.html', query=query.fetchall(), form=form, parametros=parametros,
+                                       html=[formaConsulta, htmlAnoMin, htmlAnoMax, htmlDuracaoMin, htmlDuracaoMax, htmlNotaMin,
+                                             htmlNotaMax, urlGenero])
 
-            if form.formaConsulta.data == 'Aleatório':
+            if formaConsulta == 'Aleatório':
 
                 query = query.fetchall()
                 random_film = random.choice(query)
                 query = [random_film]
 
-                return render_template('minhalista.html', query=query, form=form, parametros=parametros)
+                return render_template('minhalista.html', query=query, form=form, parametros=parametros,
+                                       html=[formaConsulta, htmlAnoMin, htmlAnoMax, htmlDuracaoMin, htmlDuracaoMax, htmlNotaMin,
+                                             htmlNotaMax, urlGenero])
 
     else:
         flash("Os parâmetros fornecidos não são válidos. Tente novamente...")
         return render_template('error.html')
+
+
+@app.route("/filmes/<string:formaConsulta>/<int:anoMin>/<int:anoMax>/<int:duracaoMin>/<int:duracaoMax>/<string:notaMin"
+           ">/<string:notaMax>/<string:genero>", methods=['GET'])
+def mostrar_filmes_reload(formaConsulta, anoMin, anoMax, duracaoMin, duracaoMax, notaMin, notaMax, genero):
+
+    form = ConsultaForm()
+
+    formAnoMin = f" AND v.ano >= {anoMin}"
+    htmlAnoMin = anoMin
+
+    formAnoMax = f" AND v.ano <= {anoMax}"
+    htmlAnoMax = anoMax
+
+    formDuracaoMin = f" AND v.duracao_min >= {duracaoMin}"
+    htmlDuracaoMin = duracaoMin
+
+    formDuracaoMax = f" AND v.duracao_min <= {duracaoMax}"
+    htmlDuracaoMax = duracaoMax
+
+    formNotaMin = f" AND v.nota_imdb >= {notaMin}"
+    htmlNotaMin = notaMin
+
+    formNotaMax = f" AND v.nota_imdb <= {notaMax}"
+    htmlNotaMax = notaMax
+
+    if genero == 'Todos':
+        formGenero = ''
+        htmlGenero = 'Todos'
+        urlGenero = 'Todos'
+
+    else:
+        genero = genero.replace("*", ", ")
+        genero = genero.split(', ')
+
+        formGenero = f" AND (g.genero_1 = ANY (array{genero}) " \
+                     f"OR g.genero_2 = ANY (array{genero}) " \
+                     f"OR g.genero_3 = ANY (array{genero}) " \
+                     f"OR g.genero_4 = ANY (array{genero}) " \
+                     f"OR g.genero_5 = ANY (array{genero}) " \
+                     f"OR g.genero_6 = ANY (array{genero}) " \
+                     f"OR g.genero_7 = ANY (array{genero}) " \
+                     f"OR g.genero_8 = ANY (array{genero}) " \
+                     f"OR g.genero_9 = ANY (array{genero}) " \
+                     f"OR g.genero_10 = ANY (array{genero}))"
+        htmlGenero = str(genero)[1:-1]
+        htmlGenero = htmlGenero.replace("'", "")
+        urlGenero = htmlGenero.replace(", ", "*")
+
+    query = db.execute(f"SELECT * FROM mostrar_filmes_view v, genero g WHERE v.imdb_id=g.imdb_id"
+                       f"{formAnoMin}{formAnoMax}{formDuracaoMin}{formDuracaoMax}{formNotaMin}"
+                       f"{formNotaMax}{formGenero};")
+
+    parametros = Markup(f'<h1 class="parametros-pesquisa"> '
+                        f'<b>Modo:</b> {formaConsulta}, '
+                        f'<b>Ano:</b> de {htmlAnoMin} até {htmlAnoMax}, '
+                        f'<b>Duração:</b> de {htmlDuracaoMin} até {htmlDuracaoMax} minutos, '
+                        f'<b>Nota:</b> de {htmlNotaMin} até {htmlNotaMax}, '
+                        f'<b>Gênero(s):</b> {htmlGenero}.</h1>')
+
+    if formaConsulta == 'Lista':
+        return render_template('minhalista.html', query=query.fetchall(), form=form, parametros=parametros,
+                               html=[formaConsulta, htmlAnoMin, htmlAnoMax, htmlDuracaoMin, htmlDuracaoMax, htmlNotaMin,
+                                     htmlNotaMax, urlGenero])
+
+    if formaConsulta == 'Aleatório':
+        query = query.fetchall()
+        random_film = random.choice(query)
+        query = [random_film]
+
+        return render_template('minhalista.html', query=query, form=form, parametros=parametros,
+                               html=[formaConsulta, htmlAnoMin, htmlAnoMax, htmlDuracaoMin, htmlDuracaoMax, htmlNotaMin,
+                                     htmlNotaMax, urlGenero])
 
 
 @app.route("/filmes/<string:imdbID>", methods=['GET'])
@@ -234,6 +316,19 @@ def mostrar_detalhes_filme(imdbID):
     existe_no_banco = db.execute(f"SELECT EXISTS (SELECT 1 FROM filme WHERE imdb_id='{imdbID}')").scalar()
 
     return render_template('detalhes.html', query=query, existe_no_banco=existe_no_banco)
+
+
+@app.route("/filmes/<string:imdbID>/<string:formaConsulta>/<int:anoMin>/<int:anoMax>/<int:duracaoMin>/<int:duracaoMax"
+           ">/<string:notaMin>/<string:notaMax>/<string:genero>", methods=['GET'])
+def mostrar_detalhes_filme_reload(imdbID, formaConsulta, anoMin, anoMax, duracaoMin, duracaoMax, notaMin,
+                                      notaMax, genero):
+
+    query = db.execute(f"SELECT * FROM mostrar_detalhes_filme_view WHERE imdb_id = '{imdbID}'").fetchall()
+
+    existe_no_banco = db.execute(f"SELECT EXISTS (SELECT 1 FROM filme WHERE imdb_id='{imdbID}')").scalar()
+
+    return render_template('detalhes.html', query=query, existe_no_banco=existe_no_banco,
+                           html=[formaConsulta, anoMin, anoMax, duracaoMin, duracaoMax, notaMin, notaMax, genero])
 
 
 if __name__ == "__main__":

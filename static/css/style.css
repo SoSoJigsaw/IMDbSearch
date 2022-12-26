@@ -443,7 +443,7 @@ img {
     .grade-resultado {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        padding-top: 40px;
+        padding-top: 20px;
         padding-bottom: 25px;
     }
 
@@ -696,4 +696,24 @@ tr:nth-child(even)    { background-color:var(--rafia);}
     text-align: center;
     font-size: 24pt;
     padding-top: 80px;
+}
+
+/* Botão de retornar à pesquisa */
+#container-botao-retornar {
+    display: inline-block;
+    padding-top: 20px;
+}
+
+.botao-retornar-pesquisa {
+    color: var(--azul-profundo);
+    background-color: transparent;
+    border: 0px solid transparent;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.botao-retornar-pesquisa i {
+    color: var(--azul-profundo);
+    margin: 1rem 0.4rem 0 0;
 }

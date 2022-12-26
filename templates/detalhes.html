@@ -8,7 +8,7 @@
     <title>{{ q[1] }}</title>
     {% endfor %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel = "stylesheet" href = "../static/css/style.css">
+    <link rel = "stylesheet" href = "../../../../../../../../../static/css/style.css">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
         <!-- Acesso ao Minha Lista e visualização do logo da IMDbSearch -->
         <div class="header">
             <div class="container">
-                <img src="../static/image/ImdbSearch.png">
+                <img src="../../../../../../../../../static/image/ImdbSearch.png">
                 <a href="minhalista.html" class="lista-filmes-assistir"><i class="fa-solid fa-heart"></i><b>Minha Lista</b></a>
             </div>
         </div>
@@ -27,6 +27,22 @@
         </div>
         <!-- fim do container de pesquisa -->
 
+        <!-- Container de botoes -->
+        <div class="container" id="container-botao-retornar">
+            {% if html %}
+            <button class="botao-retornar-pesquisa" onclick="retornarPesquisa();"><i class="fa-solid fa-arrow-turn-down-left"></i>Retornar</button>
+            <span class="hide html" id="formaConsulta">{{ html[0] }}</span>
+            <span class="hide html" id="anoMin">{{ html[1] }}</span>
+            <span class="hide html" id="anoMax">{{ html[2] }}</span>
+            <span class="hide html" id="duracaoMin">{{ html[3] }}</span>
+            <span class="hide html" id="duracaoMax">{{ html[4] }}</span>
+            <span class="hide html" id="notaMin">{{ html[5] }}</span>
+            <span class="hide html" id="notaMax">{{ html[6] }}</span>
+            <span class="hide html" id="genero-pesquisa">{{ html[7] }}</span>
+            {% else %}
+            <button class="botao-retornar-pesquisa" onclick="retornarFilmes();"><i class="fa-solid fa-arrow-turn-down-left"></i>Retornar</button>
+            {% endif %}
+        </div>
         <!-- Container de resultado -->
         <div class="container">
             <div class="container-resultado">
@@ -64,7 +80,7 @@
     </div>
 
 
-    <script src="../static/js/consumoAPI.js"></script>
-    <script src="../static/js/minhaLista.js"></script>
+    <script src="../../../../../../../../../static/js/consumoAPI.js"></script>
+    <script src="../../../../../../../../../static/js/minhaLista.js"></script>
 </body>
 </html>
