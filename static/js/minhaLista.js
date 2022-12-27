@@ -31,11 +31,23 @@ function removerMinhaLista() {
 // Função que abre o formulário de consulta
 function abrirForm() {
   document.getElementById("consulta-minha-lista").style.display = "block";
+
+  document.getElementById("header").style.opacity = "0.7";
+  document.getElementById("container-minha-lista").style.opacity = "0.7";
+  document.getElementById("container-botao-abrir").style.opacity = "0.7";
+  document.getElementById("container-parametros-pesquisa").style.opacity = "0.7";
+  document.getElementById("minha-lista").style.opacity = "0.7";
 }
 
 // Função que fecha o formulário de consulta
 function fecharForm() {
   document.getElementById("consulta-minha-lista").style.display = "none";
+
+  document.getElementById("header").style.opacity = "1";
+  document.getElementById("container-minha-lista").style.opacity = "1";
+  document.getElementById("container-botao-abrir").style.opacity = "1";
+  document.getElementById("container-parametros-pesquisa").style.opacity = "1";
+  document.getElementById("minha-lista").style.opacity = "1";
 }
 
 

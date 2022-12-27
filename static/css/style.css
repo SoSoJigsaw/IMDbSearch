@@ -179,11 +179,17 @@ ul li:hover {
     border: none;
     height: 100px;
     width: auto;
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 .botao-adicionar i {
     color: var(--azul-profundo);
     font-size: 40px;
+}
+
+.botao-adicionar:hover {
+    opacity: 1;
 }
 
 .botao-remover {
@@ -193,11 +199,17 @@ ul li:hover {
     border: none;
     height: 100px;
     width: auto;
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 .botao-remover i {
     color: var(--azul-profundo);
     font-size: 40px;
+}
+
+.botao-remover:hover {
+    opacity: 1;
 }
 
 
@@ -559,6 +571,7 @@ a {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   z-index: 9;
+  opacity: 1 !important;
 }
 
 .form-minha-lista {
@@ -692,12 +705,21 @@ a {
 }
 
 .linha-genero ul {
+    font-size: 12px !important;
     text-align: center !important;
     background-color: #fff !important;
     border: 0.5px solid !important;
     border-color: var(--rafia) !important;
     border-radius: 2px !important;
     width: 200px !important;
+}
+
+.chosen-container-multi .chosen-choices {
+    position: initial;
+}
+
+.chosen-container .chosen-results {
+    position: initial;
 }
 
 .linha-forma-consulta select {

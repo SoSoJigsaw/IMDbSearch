@@ -13,9 +13,9 @@
 </head>
 <body>
     
-    <div class="wrapper">
+    <div class="wrapper" id="wrapper">
         <!-- Acesso ao Index e visualização do logo da IMDbSearch -->
-        <div class="header">
+        <div class="header" id="header">
             <div class="container">
                 <img src="../../../../../../../../static/image/ImdbSearch.png">
                 <ul>
@@ -26,7 +26,7 @@
         </div>
 
         <!-- Container do título -->
-        <div class="container-minha-lista">
+        <div class="container-minha-lista" id="container-minha-lista">
             <h1><b>Minha Lista</b></h1>
         </div>
         <!-- fim do container do título -->
@@ -47,7 +47,7 @@
             </div>
 
             <div class="container" id="consulta-minha-lista">
-                <form class="form-minha-lista" method="POST" action="/filmes">
+                <form class="form-minha-lista" id="form-minha-lista" method="POST" action="/filmes">
                     {{ form.csrf_token }}
 
                 <div class="linha-forma-consulta">
