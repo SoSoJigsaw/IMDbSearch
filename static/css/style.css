@@ -110,14 +110,14 @@ img {
     margin: 0 0.4rem 0 0;
 }
 
-ul {
+.navbar {
     list-style-type: none;
     position: absolute;
     right: 12px;
     top: 25px;
 }
 
-ul li {
+.navbar li {
     display: inline-block;
     text-decoration: none;
     color: var(--azul-profundo);
@@ -129,7 +129,7 @@ ul li {
     opacity: 0.8;
 }
 
-ul li:hover {
+.navbar li:hover {
     opacity: 1;
 }
 
