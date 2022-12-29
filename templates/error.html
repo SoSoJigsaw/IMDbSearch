@@ -32,12 +32,14 @@
 
             <!-- Container de botẽes -->
             <div class="container" id="container-botao-retornar">
+                <!-- botão que retorna à página fornecida como parâmetro na variável 'url' no route -->
                  <a class="botao-retornar-pesquisa" href="{{ url_for(url) }}"><i class="fa-solid fa-arrow-left"></i>Retornar</a>
             </div>
             <!-- fim do container de botões -->
 
             <div class="container" id="minha-lista">
                 <div id="mostrar-lisa-filmes">
+                    <!-- Mensagens flash geradas pelo route -->
                     {% for message in get_flashed_messages() %}
                          <div class=flash>{{ message }}</div>
                     {% endfor %}

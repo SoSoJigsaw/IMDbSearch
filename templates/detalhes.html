@@ -32,8 +32,11 @@
 
         <!-- Container de botẽes -->
         <div class="container" id="container-botao-retornar">
+            <!-- Se o route contém o parâmetro 'html' em seu retorno, então adicionar o botão de retornar à pesquisa anterior -->
             {% if html %}
             <button class="botao-retornar-pesquisa" onclick="retornarPesquisa();"><i class="fa-solid fa-arrow-left"></i>Retornar</button>
+
+            <!-- tags span para passar parâmetros ao url através da função 'retornarPesquisa();' do javascript -->
             <span class="hide html" id="formaConsulta">{{ html[0] }}</span>
             <span class="hide html" id="anoMin">{{ html[1] }}</span>
             <span class="hide html" id="anoMax">{{ html[2] }}</span>
@@ -42,6 +45,7 @@
             <span class="hide html" id="notaMin">{{ html[5] }}</span>
             <span class="hide html" id="notaMax">{{ html[6] }}</span>
             <span class="hide html" id="genero-pesquisa">{{ html[7] }}</span>
+            <!-- Caso o route não contenha o parâmetro 'html' em seu retorno, então adicionar o botão de voltar ao método GET da página de /filmes -->
             {% else %}
             <button class="botao-retornar-pesquisa" onclick="retornarFilmes();"><i class="fa-solid fa-arrow-left"></i>Retornar</button>
             {% endif %}
@@ -53,6 +57,7 @@
             <div class="container-resultado">
                 <div class="grade-resultado">
                     <div class="filme-poster">
+    <!-- Para cada filme presente na query do route, listar suas informações como o seguinte: -->
         {% for q in query %}
         <img src="{{ q[12] }}" alt="filme poster">
     </div>

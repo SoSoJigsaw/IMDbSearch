@@ -34,19 +34,23 @@
         <main>
 
             <div class="container" id="container-botao-abrir">
+                <!-- Botão que abre o formulário que está escondido inicialmente -->
                 <button class="botao-abrir-form" onclick="abrirForm()"><i class="fa-solid fa-filter"></i>Filtrar</button>
+                <!-- Se o route possui em seu retorno a variável 'resetar', então criar o botão de resetar -->
                 {% if resetar == '' %}
                 <a class="botao-resetar" href="{{ url_for('mostrar_filmes') }}"><button><i class="fa-solid fa-rotate-left"></i>Resetar</button></a>
                 {% endif %}
             </div>
 
             <div class="container" id="container-parametros-pesquisa">
+                <!-- Se o route possui em seu retorno a variável 'parametros', então dispor aqui a marcação de texto gerada pelo backend -->
                 {% if parametros %}
                     {{ parametros }}
                 {% endif %}
             </div>
 
             <div class="container" id="consulta-minha-lista">
+                <!-- Formulário WTForms do backend -->
                 <form class="form-minha-lista" id="form-minha-lista" method="POST" action="/filmes">
                     {{ form.csrf_token }}
 
@@ -170,6 +174,7 @@
                 </p>
 
                 <p>
+                    <!-- botão que esconde novamente o formulário -->
                     <button type="button" class="botao-cancelar" onclick="fecharForm()">Fechar</button>
                 </p>
                 </div>
@@ -179,14 +184,18 @@
 
             <div class="container" id="minha-lista">
                 <div id="mostrar-lisa-filmes">
+                        <!-- Mensagens flash geradas pelo route -->
                         {% for message in get_flashed_messages() %}
                              <p class="lista-vazia">{{ message }}</p>
                         {% endfor %}
 
+                    <!-- Se no retorno do route tiver o parâmetro 'query', então gerar o bloco seguinte -->
                     {% if query %}
                             <table class="table-minha-lista" id="table-minha-lista">
+                            <!-- Para cada filme presente na query do route, listar suas informações como o seguinte: -->
                             {% for q in query %}
                                 <tr>
+                                    <!-- Se no retorno do route estiver presente o parâmetro 'html', gerar as tags A com o url_for para a function 'mostrar_detalhes_filme_reload com seus respectivos parâmetros -->
                                     {% if html %}
                                     <td class="table-poster"><a href="{{ url_for('mostrar_detalhes_filme_reload', imdbID=q[0], formaConsulta=html[0], anoMin=html[1], anoMax=html[2], duracaoMin=html[3], duracaoMax=html[4], notaMin=html[5], notaMax=html[6], genero=html[7]) }}" style="cursor: pointer;"><img src="{{ q[6] }}" alt="" border=3 height=150 width=450></img></a></td>
                                     <td class="table-titulo"><a href="{{ url_for('mostrar_detalhes_filme_reload', imdbID=q[0], formaConsulta=html[0], anoMin=html[1], anoMax=html[2], duracaoMin=html[3], duracaoMax=html[4], notaMin=html[5], notaMax=html[6], genero=html[7]) }}" style="cursor: pointer;">{{ q[1] }}</a></td>
@@ -198,6 +207,7 @@
                                         <span id="{{ q[0] }}" class="hide id-filme">{{ q[0] }}</span>
                                         <a href="{{ url_for('apagar_filme', imdbID=q[0]) }}" style="cursor: pointer;"><button class="table-botao-remover"><i class="fa-solid fa-circle-minus"></i></button></a>
                                     </td>
+                                    <!-- Se no retorno do route NÃO estiver presente o parâmetro 'html', gerar as tags A com o url_for para a function 'mostrar_detalhes_filme com seus respectivos parâmetros -->
                                     {% else %}
                                     <td class="table-poster"><a href="{{ url_for('mostrar_detalhes_filme', imdbID=q[0]) }}" style="cursor: pointer;"><img src="{{ q[6] }}" alt="" border=3 height=150 width=450></img></a></td>
                                     <td class="table-titulo"><a href="{{ url_for('mostrar_detalhes_filme', imdbID=q[0]) }}" style="cursor: pointer;">{{ q[1] }}</a></td>
