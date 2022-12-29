@@ -803,4 +803,16 @@ a {
 }
 
 
-/* Navbar */
+/* Botões de paginação */
+#buttons {
+    text-align: center;
+}
+
+#buttons input[type="button"]{
+    background-color: var(--off-white);
+    border: none;
+    padding: 20px;
+    color: var(--azul-profundo);
+    font-size: 20px;
+    cursor: pointer;
+}
