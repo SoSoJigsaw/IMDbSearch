@@ -806,12 +806,16 @@ a {
 /* Botões de paginação */
 #buttons {
     text-align: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
 }
 
 #buttons input[type="button"]{
     background-color: var(--off-white);
     border: none;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
     color: var(--azul-profundo);
     font-size: 20px;
     cursor: pointer;

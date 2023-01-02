@@ -35,6 +35,11 @@ def resultado(imdbID):
     filme['Plot'] = filme['Plot'].replace("'", "`")
     filme['Title'] = filme['Title'].replace("'", "`")
     filme['Awards'] = filme['Awards'].replace("'", "`")
+    filme['Actors'] = filme['Actors'].replace("'", "`")
+    filme['Writer'] = filme['Writer'].replace("'", "`")
+
+    # Reformatando ano, pra que apareça apenas a primeira data, no caso de séries que já terminaram
+    filme['Year'] = filme['Year'][:4]
 
     # Caso o filme não tenha poster, setar "sem_imagem.gif" como a imagem source
     filme['Poster'] = filme['Poster'].replace('N/A', '/static/image/sem_imagem.gif')
@@ -69,6 +74,11 @@ def salvar_filme(imdbID):
         filme['Plot'] = filme['Plot'].replace("'", "`")
         filme['Title'] = filme['Title'].replace("'", "`")
         filme['Awards'] = filme['Awards'].replace("'", "`")
+        filme['Actors'] = filme['Actors'].replace("'", "`")
+        filme['Writer'] = filme['Writer'].replace("'", "`")
+
+        # Reformatando ano, pra que apareça apenas a primeira data, no caso de séries que já terminaram
+        filme['Year'] = filme['Year'][:4]
 
         filme['Poster'] = filme['Poster'].replace('N/A', '/static/image/sem_imagem.gif')
 
@@ -129,6 +139,36 @@ def apagar_filme(imdbID):
         db.execute(f"DELETE FROM filme WHERE imdb_id= '{imdbID}';")
 
         return redirect('/filmes')
+
+    # Caso a rotina do route apresente algum erro ao remover o filme no banco de dados, redirecionar à pagina de erro
+    except:
+
+        # Mensagem flash a ser monstrada no template
+        flash(f"Não foi possível remover o filme. Tente novamente...")
+
+        # Botao de retornar no template
+        redirect_url = 'mostrar_filmes'
+
+        return render_template('error.html', url=redirect_url)
+
+
+# Route que direciona a pagina de remover um filme do banco de dados, e caso a rotina ocorra sem nenhum erro,
+# ele redicionara a pagina dos filmes listados no banco de dados
+# No entanto, esse route também armazena os parâmetros de pesquisa, diferente do route anterior
+@app.route("/remover/<string:imdbID>/<string:formaConsulta>/<int:anoMin>/<int:anoMax>/<int:duracaoMin>/"
+           "<int:duracaoMax>/<string:notaMin>/<string:notaMax>/<string:genero>", methods=['GET'])
+def apagar_filme_reload(imdbID, formaConsulta, anoMin, anoMax, duracaoMin, duracaoMax, notaMin, notaMax, genero):
+
+    try:
+
+        # Querys que excluem a linha referente ao filme passado como parametro na url (imdbID), nas tabelas
+        # FILME e GENERO
+        db.execute(f"DELETE FROM genero WHERE imdb_id= '{imdbID}';")
+
+        db.execute(f"DELETE FROM filme WHERE imdb_id= '{imdbID}';")
+
+        return redirect(f'/filmes/{formaConsulta}/{anoMin}/{anoMax}/{duracaoMin}/{duracaoMax}/{notaMin}/'
+                        f'{notaMax}/{genero}')
 
     # Caso a rotina do route apresente algum erro ao remover o filme no banco de dados, redirecionar à pagina de erro
     except:

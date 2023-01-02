@@ -205,7 +205,7 @@
                                     <td class="table-avaliacao"><a href="{{ url_for('mostrar_detalhes_filme_reload', imdbID=q[0], formaConsulta=html[0], anoMin=html[1], anoMax=html[2], duracaoMin=html[3], duracaoMax=html[4], notaMin=html[5], notaMax=html[6], genero=html[7]) }}" style="cursor: pointer;"><i class="fa-sharp fa-solid fa-star"></i>{{ q[5] }}</a></td>
                                     <td class="table-botao">
                                         <span id="{{ q[0] }}" class="hide id-filme">{{ q[0] }}</span>
-                                        <a href="{{ url_for('apagar_filme', imdbID=q[0]) }}" style="cursor: pointer;"><button class="table-botao-remover"><i class="fa-solid fa-circle-minus"></i></button></a>
+                                        <a href="{{ url_for('apagar_filme_reload', imdbID=q[0], formaConsulta=html[0], anoMin=html[1], anoMax=html[2], duracaoMin=html[3], duracaoMax=html[4], notaMin=html[5], notaMax=html[6], genero=html[7]) }}" style="cursor: pointer;"><button class="table-botao-remover"><i class="fa-solid fa-circle-minus"></i></button></a>
                                     </td>
                                     <!-- Se no retorno do route NÃO estiver presente o parâmetro 'html', gerar as tags A com o url_for para a function 'mostrar_detalhes_filme com seus respectivos parâmetros -->
                                     {% else %}
